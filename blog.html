@@ -52,7 +52,7 @@
         const chev = document.getElementById('chev');
 
         function updateChevron(){
-          // show chevron if there is more vertical scrollable content
+          // show chevron only if there is more vertical scrollable content
           if(!posts) return;
           const canScrollDown = posts.scrollTop + posts.clientHeight < posts.scrollHeight - 1;
           if(canScrollDown) chev.classList.add('visible'); else chev.classList.remove('visible');

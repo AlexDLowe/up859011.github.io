@@ -6,9 +6,10 @@
 
 /* Back link in top-left */
 .back-link{
-  position: absolute;
+  position: fixed;
   top: 1rem;
   left: 1rem;
+  z-index: 10;
 }
 .back-link a{
   color: white;
@@ -29,10 +30,10 @@ h1 {
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
-  padding-top: 2.5rem;
   display: flex;
   flex-direction: column;
-  min-height: calc(100vh);
+  height: 100%;
+  flex: 1 1 auto;
 }
 
 .blog-main .circle_img{
@@ -45,10 +46,21 @@ h1 {
   text-align: left;
   /* fill remaining viewport height and allow internal scrolling between posts */
   flex: 1 1 auto;
-  overflow: auto;
+  overflow-y: scroll;
+  overflow-x: hidden;
   box-sizing: border-box;
   padding: 0.5rem;
+  padding-bottom: 4rem;
   -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar but keep scrolling functional */
+.posts::-webkit-scrollbar {
+  display: none;
+}
+.posts {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 
@@ -83,9 +95,13 @@ h1 {
 
 /* Ensure blog page overrides the homepage layout settings */
 body.blog-page{
-  display: block !important;
-  height: auto !important;
-  overflow: auto !important;
+  display: flex !important;
+  flex-direction: column !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  overflow: hidden !important;
+  align-items: stretch !important;
+  justify-content: flex-start !important;
 }
 
 /* chevron shown when there's more content */
