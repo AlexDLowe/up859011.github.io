@@ -6,35 +6,76 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blog — Alex Donovan-Lowe</title>
     <link href="style.css" rel="stylesheet">
+    <link href="style_blog.css" rel="stylesheet">
   </head>
-  <body>
-    <div style="position: absolute; top: 1rem; left: 1rem;">
-      <a href="index.html" style="color: white; text-decoration: none; font-family: 'Poppins';">&larr; Home</a>
+  <body class="blog-page">
+    <div class="back-link">
+      <a href="index.html">&larr; Home</a>
     </div>
-    <main style="width: 92%; max-width: 900px; margin: 0 auto; text-align: center; padding-top: 2.5rem;">
-      <img class="circle_img" src="assets/me.png" alt="Portrait image">
-      <h1 class="bigheading">Blog</h1>
-      <p class="subheading">Thoughts, notes and photo-projects — a simple blog to start.</p>
+    <main class="blog-main">
+      <div class="blog-header">
+        <img class="circle_img" src="assets/me.png" alt="Portrait image">
+        <h1 class="bigheading">Blog</h1>
+        <p class="subheading">A simple blog where I share my thoughts and musings from time-to-time.</p>
+      </div>
 
-      <section style="margin-top: 1.5rem; text-align: left;">
-        <article style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-          <h2 style="color: white; margin: 0 0 0.5rem 0; font-family: 'Poppins';">Welcome — first post</h2>
-          <p style="color: #ddd; margin: 0 0 0.5rem 0;">This is a simple starter blog page. You can add posts as separate HTML files or expand this into a templated blog.</p>
-          <a href="#" style="color: #9ecaff; text-decoration: none; font-family: 'Poppins';">Read more</a>
+      <div class="posts" id="posts">
+        <article class="blog-article">
+          <div class="post-inner">
+            <h2 class="post-title">Welcome — first post</h2>
+            <p>This is a simple starter blog page. You can add posts as separate HTML files or expand this into a templated blog.</p>
+          </div>
         </article>
 
-        <article style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-          <h2 style="color: white; margin: 0 0 0.5rem 0; font-family: 'Poppins';">Photography project — notes</h2>
-          <p style="color: #ddd; margin: 0 0 0.5rem 0;">Short notes about a recent shoot and experiments with lighting and composition.</p>
-          <a href="#" style="color: #9ecaff; text-decoration: none; font-family: 'Poppins';">Read more</a>
+        <article class="blog-article">
+          <div class="post-inner">
+            <h2 class="post-title">Photography project — notes</h2>
+            <p>Short notes about a recent shoot and experiments with lighting and composition.</p>
+          </div>
         </article>
 
-        <article style="background: rgba(255,255,255,0.03); padding: 1rem; border-radius: 8px; margin-bottom: 1rem;">
-          <h2 style="color: white; margin: 0 0 0.5rem 0; font-family: 'Poppins';">Diversity and inclusion — a note</h2>
-          <p style="color: #ddd; margin: 0 0 0.5rem 0;">Thoughts on championing diversity in academia and creative practice.</p>
-          <a href="#" style="color: #9ecaff; text-decoration: none; font-family: 'Poppins';">Read more</a>
+        <article class="blog-article">
+          <div class="post-inner">
+            <h2 class="post-title">Diversity and inclusion — a note</h2>
+            <p>Thoughts on championing diversity in academia and creative practice.</p>
+          </div>
         </article>
-      </section>
+      </div>
     </main>
+
+    <!-- chevron shown when there is more content below the current viewport -->
+    <button class="scroll-chevron" id="chev" aria-label="Scroll to next post"></button>
+
+    <script>
+      (function(){
+        const posts = document.getElementById('posts');
+        const chev = document.getElementById('chev');
+
+        function updateChevron(){
+          // show chevron if there is more vertical scrollable content
+          if(!posts) return;
+          const canScrollDown = posts.scrollTop + posts.clientHeight < posts.scrollHeight - 1;
+          if(canScrollDown) chev.classList.add('visible'); else chev.classList.remove('visible');
+        }
+
+        // scroll to next post (page) when chevron clicked
+        function scrollNext(){
+          if(!posts) return;
+          const cur = posts.scrollTop;
+          const page = posts.clientHeight;
+          const next = Math.min(cur + page, posts.scrollHeight - page);
+          posts.scrollTo({ top: next, behavior: 'smooth' });
+        }
+
+        // initial check
+        window.addEventListener('load', updateChevron);
+        window.addEventListener('resize', updateChevron);
+        posts && posts.addEventListener('scroll', updateChevron);
+        chev && chev.addEventListener('click', scrollNext);
+
+        // also hide chevron if there's only one post
+        updateChevron();
+      })();
+    </script>
   </body>
 </html>
