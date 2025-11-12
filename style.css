@@ -1,40 +1,60 @@
 @import url(//fonts.googleapis.com/css?family=Monoton);
 @import url(//fonts.googleapis.com/css?family=Poppins);
 
-html {
+html, body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
+
 body {
   background-color: black;
-  min-height: 100%;
+  height: 100vh; /* ensure full viewport height */
   margin: 0;
   user-select: none;
-  transition: all 1s;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center; /* vertically center all content so no scrolling */
+  overflow: hidden; /* prevent vertical scrollbar; content is responsive instead */
 }
 
 p {
   color: white;
   text-align: center;
-  font-family: 'Poppins';
+  font-family: 'Poppins', sans-serif;
+  margin: 0; /* remove default margins so vertical spacing is predictable */
 }
+
 .subheading{
-  font-size: 30px;
+  font-size: clamp(14px, 3.5vw, 30px); /* responsive */
+  margin-top: 0.25rem;
 }
+
 .bigheading {
   font-family: 'Monoton';
-  font-size: 60px;
+  /* responsive heading that scales but won't overflow viewport */
+  font-size: clamp(28px, 8vw, 60px);
+  line-height: 1;
+  margin: 0.25rem 0;
 }
+
 .circle_img {
   border-radius: 50%;
   display: block;
-  margin-left: auto;
-  margin-right: auto;
-  max-width: 20%;
+  width: clamp(80px, 20vw, 180px); /* responsive image sizing */
+  min-width: 30%;
+  height: auto;
+  margin: 0.5rem auto;
 }
-a {
+
+/* scope anchor sizing to the button area only so other links aren't affected */
+.buttons a {
   text-decoration: none;
-  width: 10%;
-  min-width: 30px;
+  display: block;
+  width: clamp(40px, 12vw, 100px);
+  min-width: 40px;
   max-width: 100px;
 }
 .row {
@@ -49,15 +69,17 @@ a {
   max-width: 1200px;
 }
 .buttons {
-  width: 75%;
+  width: 80%;
   max-width: 900px;
-  padding-bottom: 40px;
+  padding: 0.5rem 0 0.5rem 0; /* reduce vertical space */
   display: flex;
   justify-content: space-between;
-  transition: all 1s;
+  gap: 0.5rem;
+  transition: all 0.3s ease;
 }
 .icon {
   width: 100%;
+  height: auto;
 }
 /* Note: the selector '.icon:hover + body' is invalid because 'body' is not a sibling of '.icon'. Browsers ignore this rule. */
 
@@ -78,18 +100,13 @@ a {
   justify-content: center;
   align-items: center;
   width: 100%;
-  height: auto; /* allow container to size to contents */
-  position: relative; /* position chevrons relative to this container */
-  padding: 1rem 0; /* small top spacing so chevrons are visible */
+  height: 0; /* remove extra height so chevrons don't create vertical space */
+  position: relative;
+  padding: 0;
 }
 
 .chevron {
-  position: relative; /* participate in layout instead of being removed */
-  width: 2.1rem;
-  height: 0.48rem;
-  visibility: hidden; /* hidden but still takes up space */
-  transform: scale(1);
-  animation: move-chevron 3s ease-out infinite;
+  display: none; /* remove chevrons from layout so they don't force scrolling */
 }
 
 .chevron:first-child {
@@ -136,5 +153,24 @@ a {
   100% {
     opacity: 0;
     transform: translateY(4.8rem) scale(0.5);
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .descriptor {
+    visibility: hidden;
+  }
+  .bigheading {
+    font-size: clamp(24px, 10vw, 40px);
+  }
+  .subheading {
+    font-size: clamp(12px, 4vw, 20px);
+  }
+  .buttons {
+    width: 88%;
+    gap: 0.25rem;
+  }
+  body {
+    justify-content: center; /* ensure small screens are centered */
   }
 }
