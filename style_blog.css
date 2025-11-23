@@ -30,10 +30,8 @@ h1 {
   max-width: 900px;
   margin: 0 auto;
   text-align: center;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-  flex: 1 1 auto;
+  display: block;
+  height: auto;
 }
 
 .blog-main .circle_img{
@@ -41,17 +39,22 @@ h1 {
   margin: 0.5rem auto;
 }
 
+/* give a little extra space below the fixed back-link so the header doesn't sit too close */
+.back-link{
+  padding-bottom: 0.5rem;
+}
+
+.blog-header{
+  margin-top: 0.5rem;
+}
+
 .posts{
   margin-top: 1.5rem;
   text-align: left;
-  /* fill remaining viewport height and allow internal scrolling between posts */
-  flex: 1 1 auto;
-  overflow-y: scroll;
-  overflow-x: hidden;
+  /* normal document flow: let the page scroll, articles size to content */
+  overflow: visible;
   box-sizing: border-box;
-  padding: 0.5rem;
-  padding-bottom: 4rem;
-  -webkit-overflow-scrolling: touch;
+  padding: 0.5rem 0.5rem 2rem 0.5rem;
 }
 
 /* Hide scrollbar but keep scrolling functional */
@@ -69,29 +72,23 @@ h1 {
   padding: 1rem;
   border-radius: 8px;
   margin-bottom: 1rem;
-  /* make each article exactly the height of the posts viewport so it fills the view */
-  height: 100%;
+  /* normal article: size to content */
+  height: auto;
   box-sizing: border-box;
-  display: flex;
-  align-items: flex-start;
+  display: block;
+}
+
+/* On single-post pages (full article view) remove the muted panel background so text sits on page background */
+body.single-post .blog-article{
+  background: transparent;
 }
 
 .post-inner{
   width: 100%;
 }
 
-/* ensure there's breathing room at the bottom so content doesn't hide behind the fixed chevron */
-.posts{
-  padding-bottom: 4rem;
-}
-
-/* enable snapping so each article behaves like a page */
-.posts{
-  scroll-snap-type: y mandatory;
-}
-.blog-article{
-  scroll-snap-align: start;
-}
+/* remove snap behaviour for normal blog listing */
+/* single-post overrides still apply for full article pages */
 
 /* Ensure blog page overrides the homepage layout settings */
 body.blog-page{
@@ -102,6 +99,36 @@ body.blog-page{
   overflow: hidden !important;
   align-items: stretch !important;
   justify-content: flex-start !important;
+}
+
+/* Single-post pages should behave like normal pages: no internal scrolling, no snap, normal document flow */
+body.single-post{
+  /* revert to normal document flow */
+  display: block !important;
+  height: auto !important;
+  min-height: auto !important;
+  overflow: auto !important;
+}
+
+body.single-post .blog-main{
+  height: auto !important;
+  flex: initial !important;
+}
+
+body.single-post .posts{
+  /* allow posts to flow in page (no internal scroll) */
+  overflow: visible !important;
+  height: auto !important;
+  flex: initial !important;
+  scroll-snap-type: none !important;
+  -webkit-overflow-scrolling: auto !important;
+  padding-bottom: 2rem !important;
+}
+
+body.single-post .blog-article{
+  /* each article should size to its content on single-post pages */
+  height: auto !important;
+  scroll-snap-align: none !important;
 }
 
 /* chevron shown when there's more content */
@@ -158,6 +185,15 @@ body.blog-page{
   font-family: 'Poppins', sans-serif;
 }
 
+/* Ensure title links are white and not the browser default blue */
+.post-title a{
+  color: white;
+  text-decoration: underline;
+}
+.post-title a:hover{
+  color: #e6f4ff; /* slight tint on hover */
+}
+
 .blog-article p{
   color: var(--muted-text);
   margin: 0 0 0.5rem 0;
@@ -174,5 +210,5 @@ a.read-more{
   .blog-main{
     padding-top: 1.25rem;
   }
-  .back-link{ top: 0.5rem; left: 0.5rem; }
+  .back-link{ top: 0.5rem; left: 0.5rem;}
 }
