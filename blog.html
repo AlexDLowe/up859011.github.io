@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blog — Alex Donovan-Lowe</title>
+    <link href="style.css" rel="stylesheet">
+    <link href="style_blog.css" rel="stylesheet">
+  </head>
+  <body class="blog-page">
+    <div class="back-link">
+      <a href="index.html">&larr; Home</a>
+    </div>
+    <main class="blog-main">
+      <div class="blog-header">
+        <img class="circle_img" src="assets/me.png" alt="Portrait image">
+        <h1 class="bigheading">Blog</h1>
+        <p class="subheading">A simple blog where I share my thoughts and musings from time-to-time.</p>
+      </div>
+
+      <div class="posts" id="posts">
+
+        <article class="blog-article">
+          <div class="post-inner">
+            <h2 class="post-title"><a href="blog_posts/leftistInfighting.html">Why do people think infighting is so bad?</a></h2>
+            <p class="post-date">07 Dec 2025</p>
+            <p class="post-summary">My firsthand account refutes the media claims of chaos at the Your Party conference, I celebrate its constructive debates, decisions, and I call for solidarity in building a better Britain.</p>
+            <a class="read-more" href="blog_posts/leftistInfighting.html">Read more &rarr;</a>
+          </div>
+        </article>
+
+        <article class="blog-article">
+          <div class="post-inner">
+            <h2 class="post-title"><a href="blog_posts/capitaliseBinBlack.html">Why do I capitalise the 'B' in Black?</a></h2>
+            <p class="post-date">08 Nov 2025</p>
+            <p class="post-summary">A short explanation of why I choose to capitalise the 'B' in Black when referring to race, and how it differs from the colour term.</p>
+            <a class="read-more" href="blog_posts/capitaliseBinBlack.html">Read more &rarr;</a>
+          </div>
+        </article>
+
+        <article class="blog-article">
+          <div class="post-inner">
+            <h2 class="post-title"><a href="#">Trigger warning (SA)</a></h2>
+            <p class="post-date">05 Nov 2025</p>
+            <p class="post-summary">A short note addressing sexual assault and how we should educate boys and protect everyone in society.</p>
+            <a class="read-more" href="blog_posts/falseAccusationDisproval.html">Read more &rarr;</a>
+          </div>
+        </article>
+
+        <article class="blog-article">
+          <div class="post-inner">
+            <h2 class="post-title"><a href="#">Remembrance Day</a></h2>
+            <p class="post-date">11 Nov 2025</p>
+            <p class="post-summary">Reflections on a Remembrance Day ceremony, rising fascism, and hope in the younger generation.</p>
+            <a class="read-more" href="blog_posts/remembranceDay2025.html">Read more &rarr;</a>
+          </div>
+        </article>
+      </div>
+      </div>
+    </main>
+
+    <!-- chevron shown when there is more content below the current viewport -->
+    <button class="scroll-chevron" id="chev" aria-label="Scroll to next post"></button>
+
+    <script>
+      (function(){
+        const posts = document.getElementById('posts');
+        const chev = document.getElementById('chev');
+
+        function updateChevron(){
+          // show chevron only if there is more vertical scrollable content
+          if(!posts) return;
+          const canScrollDown = posts.scrollTop + posts.clientHeight < posts.scrollHeight - 1;
+          if(canScrollDown) chev.classList.add('visible'); else chev.classList.remove('visible');
+        }
+
+        // scroll to next post (page) when chevron clicked
+        function scrollNext(){
+          if(!posts) return;
+          const cur = posts.scrollTop;
+          const page = posts.clientHeight;
+          const next = Math.min(cur + page, posts.scrollHeight - page);
+          posts.scrollTo({ top: next, behavior: 'smooth' });
+        }
+
+        // initial check
+        window.addEventListener('load', updateChevron);
+        window.addEventListener('resize', updateChevron);
+        posts && posts.addEventListener('scroll', updateChevron);
+        chev && chev.addEventListener('click', scrollNext);
+
+        // also hide chevron if there's only one post
+        updateChevron();
+      })();
+    </script>
+  </body>
+</html>
