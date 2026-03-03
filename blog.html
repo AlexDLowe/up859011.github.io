@@ -8,6 +8,7 @@
     <link href="style.css" rel="stylesheet">
     <link href="style_blog.css" rel="stylesheet">
   </head>
+
   <body class="blog-page">
     <div class="back-link">
       <a href="index.html">&larr; Home</a>
@@ -25,7 +26,7 @@
           <div class="post-inner">
             <h2 class="post-title"><a href="blog_posts/2026RaceChallenges.html">2026's Challenges for Race Equality</a></h2>
             <p class="post-date">03 Mar 2026</p>
-            <p class="post-summary">Is racism resurging at home and abroad? Discover why progressives must organise now to defend hard-won rights and confront a rising right-wing tide before it’s too late.</p>
+            <p class="post-summary">Racism is resurging at home and abroad? Discover why progressives must organise now to defend hard-won rights and confront a rising right-wing tide before it’s too late.</p>
             <a class="read-more" href="blog_posts/2026RaceChallenges.html">Read more &rarr;</a>
           </div>
         </article>
@@ -68,40 +69,5 @@
       </div>
       </div>
     </main>
-
-    <!-- chevron shown when there is more content below the current viewport -->
-    <button class="scroll-chevron" id="chev" aria-label="Scroll to next post"></button>
-
-    <script>
-      (function(){
-        const posts = document.getElementById('posts');
-        const chev = document.getElementById('chev');
-
-        function updateChevron(){
-          // show chevron only if there is more vertical scrollable content
-          if(!posts) return;
-          const canScrollDown = posts.scrollTop + posts.clientHeight < posts.scrollHeight - 1;
-          if(canScrollDown) chev.classList.add('visible'); else chev.classList.remove('visible');
-        }
-
-        // scroll to next post (page) when chevron clicked
-        function scrollNext(){
-          if(!posts) return;
-          const cur = posts.scrollTop;
-          const page = posts.clientHeight;
-          const next = Math.min(cur + page, posts.scrollHeight - page);
-          posts.scrollTo({ top: next, behavior: 'smooth' });
-        }
-
-        // initial check
-        window.addEventListener('load', updateChevron);
-        window.addEventListener('resize', updateChevron);
-        posts && posts.addEventListener('scroll', updateChevron);
-        chev && chev.addEventListener('click', scrollNext);
-
-        // also hide chevron if there's only one post
-        updateChevron();
-      })();
-    </script>
   </body>
 </html>
