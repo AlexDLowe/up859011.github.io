@@ -62,8 +62,10 @@ h1 {
   display: none;
 }
 .posts {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  /* Allow normal scrolling */
+  overflow: auto; /* Allow normal scrolling */
+  -ms-overflow-style: auto;  /* IE and Edge */
+  scrollbar-width: auto;  /* Firefox */
 }
 
 
